@@ -1,100 +1,70 @@
-function elem(selector) {
-    return document.querySelector(selector);
-}
+let container_1 = document.querySelector("#carousel_1"),
+    photos_1 = container_1.querySelectorAll(".photo"),
+    carousel_obj_1 = new carousel(photos_1),
+    container_2 = document.querySelector("#carousel_2"),
+    photos_2 = container_2.querySelectorAll(".photo"),
+    carousel_obj_2 = new carousel(photos_2);
 
-function elems(selector) {
-    return document.querySelectorAll(selector);
-}
-
-let input = elem("input"),
-    last_number,
-    operation;
-
-elems(".number").forEach( button => {
-    button.addEventListener("click", function () {
-        let number = this.innerText;
-        input.value = input.value + number;
-    });
-});
-
-elem("#add").addEventListener("click", function () {
-    last_number = input.value;
-    input.value = "";
-    operation = "add"
-});
-
-elem("#sub").addEventListener("click", function () {
-    last_number = input.value;
-    input.value = "";
-    operation = "sub"
-});
-
-elem("#mul").addEventListener("click", function () {
-    last_number = input.value;
-    input.value = "";
-    operation = "mul"
-});
-
-elem("#div").addEventListener("click", function () {
-    last_number = input.value;
-    input.value = "";
-    operation = "div"
-});
-
-elem("#eql").addEventListener("click", function () {
-    if (last_number && operation) {
-        let result;
-        switch (operation) {
-            case "add": {
-                result = parseInt(last_number) + parseInt(input.value);
-            } break;
-            case "sub": {
-                result = parseInt(last_number) - parseInt(input.value);
-            } break;
-            case "mul": {
-                result = parseInt(last_number) * parseInt(input.value);
-            } break;
-            case "div": {
-                if (parseInt(input.value) === 0) {
-                    result = "Ошибка: деление на 0";
-                } 
-                else {
-                    result = parseInt(last_number) / parseInt(input.value);
-                }
-            } break;
-            case "pow": {
-                result = Math.pow(parseFloat(last_number), parseFloat(input.value));
-            } break;
+const dotsContainer1 = document.createElement('div');
+dotsContainer1.className = 'dots';
+container_1.appendChild(dotsContainer1);
+for (let i = 0; i < photos_1.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if (i === carousel_obj_1.show_index) dot.classList.add('active');
+    dot.addEventListener('click', function () {
+        carousel_obj_1.go_to(i);
+        const ds = dotsContainer1.querySelectorAll('.dot');
+        for (let j = 0; j < ds.length; j++) {
+            ds[j].classList.toggle('active', j === carousel_obj_1.show_index);
         }
-        input.value = result;
-        last_number = null;
-        operation = null;
+    });
+    dotsContainer1.appendChild(dot);
+}
+
+container_1.querySelector('.prev').addEventListener('click', function () {
+    carousel_obj_1.prev_photo();
+    const ds = dotsContainer1.querySelectorAll('.dot');
+    for (let j = 0; j < ds.length; j++) {
+        ds[j].classList.toggle('active', j === carousel_obj_1.show_index);
+    }
+});
+container_1.querySelector('.next').addEventListener('click', function () {
+    carousel_obj_1.next_photo();
+    const ds = dotsContainer1.querySelectorAll('.dot');
+    for (let j = 0; j < ds.length; j++) {
+        ds[j].classList.toggle('active', j === carousel_obj_1.show_index);
     }
 });
 
-elem("#sqr").addEventListener("click", function () {
-    let number = parseInt(input.value);
-    input.value = Math.pow(number, 2);
-});
+const dotsContainer2 = document.createElement('div');
+dotsContainer2.className = 'dots';
+container_2.appendChild(dotsContainer2);
+for (let i = 0; i < photos_2.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if (i === carousel_obj_2.show_index) dot.classList.add('active');
+    dot.addEventListener('click', function () {
+        carousel_obj_2.go_to(i);
+        const ds = dotsContainer2.querySelectorAll('.dot');
+        for (let j = 0; j < ds.length; j++) {
+            ds[j].classList.toggle('active', j === carousel_obj_2.show_index);
+        }
+    });
+    dotsContainer2.appendChild(dot);
+}
 
-elem("#slr").addEventListener("click", function () {
-    input.value = "";
-    last_number = null;
-    operation = null;
+container_2.querySelector('.prev').addEventListener('click', function () {
+    carousel_obj_2.prev_photo();
+    const ds = dotsContainer2.querySelectorAll('.dot');
+    for (let j = 0; j < ds.length; j++) {
+        ds[j].classList.toggle('active', j === carousel_obj_2.show_index);
+    }
 });
-
-elem("#vvs").addEventListener("click", function () {
-    last_number = input.value;
-    input.value = "";
-    operation = "pow";
-});
-
-elem("#crn").addEventListener("click", function () {
-    let number = parseFloat(input.value);
-    if (number < 0) {
-        input.value = "Ошибка: отрицательное число";
-    } 
-    else {
-        input.value = Math.sqrt(number);
+container_2.querySelector('.next').addEventListener('click', function () {
+    carousel_obj_2.next_photo();
+    const ds = dotsContainer2.querySelectorAll('.dot');
+    for (let j = 0; j < ds.length; j++) {
+        ds[j].classList.toggle('active', j === carousel_obj_2.show_index);
     }
 });
