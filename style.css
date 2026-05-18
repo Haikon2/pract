@@ -1,85 +1,102 @@
-html, body, .container, .controls {
-    width: 100%;
-    height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap');
+body {
     margin: 0;
+    color: #fff;
+    font-family: "Momo Trust Display", sans-serif;
+  font-weight: 1000;
+  font-style: normal;
+    background: #3b3b40;
+
 }
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    overflow: hidden;
-    position: relative;
-}
-.container .photo {
-    grid-row-start: 1;
-    grid-column-start: 1;
+header {
+    display: flex;
+    height: 3rem;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transform: scale(.95);
-    transition: all .5s;
+    box-shadow: 0 0 5px #fff;
+    position: sticky;
+    top: 0;
+    background: #1d1d1d;
 }
-.container .photo.show {
-    display: flex;
-    opacity: 1;
-    transform: scale(1);
+header a {
+    margin: 0 1rem;
+    color: #fff;
+    text-decoration: none;
 }
-.container .photo img {
-    width: auto;
-    height: 100%;
-    max-height: 100%;
+h1 {
+    margin: 1rem;
+}
+#grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+}
+.photo img {
     max-width: 100%;
+    max-height: 100%;
 }
-.controls {
-    position: absolute;
-    top: 0;
-    left: 0;
+.photo p {
+    text-align: center;
 }
-.controls button {
-    background: rgba(255, 255, 255, .5);
-    border: none;
-    border-radius: 10px;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 3rem;
-    height: 3rem;
+.mobile_icon {
+    display: none;
 }
-.controls button img {
+.tablet_icon {
+    display: none;
+}
+#add_new_photo {
+position:fixed;
+z-index:2;
+align-items:center;
+justify-content:center;
+width:100%;
+height:100%;
+left:0;
+top:0;
+background:rgba(29,29,29, .5);
+display:none;
+}
+#add_new_photo div {
+width:80%;
+border:2px solid #1d1d1d;
+background:#fff;
+border-radius:5px;
+padding:1rem;
+}
+#add_new_photo input {
+padding: .5rem;
+font-family:"Momo Trust Display", sans-serif;
+display: block;
+margin-bottom: 1rem;
+width: 100%;
+box-sizing: border-box;
+}
+#add_new_photo input.error {
+    border-color: red;
+}
+#add_new_photo button {
+    font-family: "Momo Trust Display", sans-serif;
+    padding: .5rem;
+}
+#popup_photo {
+    position: fixed;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    display: block;
+    left: 0;
+    top: 0;
+    background: rgba(29,29,29, .5);
+    display: none;
 }
-.prev {
-    left: 1rem;
-}
-.next {
-    right: 1rem;
-}
-.prev img {
-    transform: rotate(180deg);
-}
-.dots {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
+#popup_photo.open {
     display: flex;
-    gap: 10px;
 }
+#popup_photo img {
+    max-width: 90%;
+    max-height:90%;
+}
+#add_new_photo.open { display: flex; }
 
-.dots .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: .3s;
-}
-
-.dots .dot.active {
-    background: white;
-    transform: scale(1.2);
-}
